@@ -1,4 +1,4 @@
-# bicycle_thefts_berlin
+# Bicycle Thefts in Berlin - Predictive Analytics Project
 
 user stories ideas:
 
@@ -8,6 +8,11 @@ user stories ideas:
 This project aims to analyze and predict bicycle theft patterns in Berlin using machine learning. The goal is to develop a Streamlit-based web application that visualizes key insights and provides predictive analytics based on various factors like time, location, and bike type.
 
 ---
+
+### Prerequisites
+- Python 3.8+
+- Streamlit
+- Pandas, NumPy, Scikit-learn, Plotly, etc.
 
 ## User Stories
 
@@ -127,3 +132,74 @@ This project aims to analyze and predict bicycle theft patterns in Berlin using 
 - **Testing:** User Stories 9, 10
 - **Done:** User Stories 11, 12, 13
 - **Additional Enhancements:** User Stories 14-19 can be placed in Backlog or To Do based on priority.
+
+
+## Dashboard Design (Streamlit App User Interface)
+
+The dashboard is designed to cater to two main user types:
+- **Non-Technical Users:** Business stakeholders such as project managers and city officials.
+- **Technical Users:** Data practitioners interested in model performance and detailed analytics.
+
+### **Page 1: Quick Project Summary**
+- **Project Overview:** Brief description of the project goals and objectives.
+- **Project Terms & Jargon:** Definitions of key terms used in the project.
+- **Describe Project Dataset:** Overview of the dataset, including sources and key attributes.
+- **State Business Requirements:** Clear listing of the business needs the project addresses.
+
+### **Page 2: Bicycle Theft Patterns Study**
+- **State Business Requirement 1:** Identify and visualize theft patterns.
+- **Checkbox:** Data inspection (display number of rows and columns, first ten rows of data).
+- **Display Correlated Variables:** Show variables most correlated with bike thefts and draw conclusions.
+- **Checkbox:** Individual plots for each correlated variable.
+- **Checkbox:** Parallel plot to visualize relationships between thefts and correlated variables.
+
+### **Page 3: Theft Risk Predictor**
+- **State Business Requirement 2:** Predict the likelihood of bike theft.
+- **Widgets Inputs:** Allow users to input variables such as location, time, bike type.
+- **Run Predictive Analysis Button:** 
+  - **Outputs:**
+    - Theft risk prediction based on input variables.
+    - Probability of theft occurring.
+    - Suggestions for reducing theft risk.
+    
+### **Page 4: Project Hypotheses and Validation**
+- **State Each Hypothesis:** List project hypotheses related to bike theft.
+- **Validation Process:**
+  - **Hypothesis 1:** High-risk areas have a higher frequency of bike thefts.
+    - **Validation:** Correlation study confirms higher theft rates in specific neighborhoods.
+  - **Hypothesis 2:** Certain times of day have higher theft incidents.
+    - **Validation:** Time-based analysis supports increased thefts during evening hours.
+  - **Hypothesis 3:** Specific bike types are targeted more frequently.
+    - **Validation:** Data shows higher theft rates for certain bike categories.
+- **Conclusions:** Summarize findings and their implications for stakeholders.
+
+### **Page 5: Model Performance - Predict Theft Risk**
+- **ML Pipeline Steps:** Overview of the machine learning pipeline used.
+- **Feature Importance:** Visualization showing which features contribute most to theft predictions.
+- **Pipeline Performance:** Metrics such as accuracy, precision, recall, and ROC-AUC scores.
+
+### **Page 6: Model Performance - Predictive Insights**
+- **Model Considerations:** Discussion on model selection and parameter tuning.
+- **Performance Metrics:** Detailed metrics and evaluation of the model's performance.
+- **Visualizations:** Confusion matrix, ROC curves, and other relevant plots.
+
+### **Page 7: Cluster Analysis**
+- **Cluster Identification:** Use clustering algorithms to identify patterns in theft data.
+- **Silhouette Plot:** Assess the quality of the clusters.
+- **Cluster Distribution:** Show distribution of theft incidents across different clusters.
+- **Relative Percentage of Thefts in Each Cluster:** Visual representation of theft distribution.
+- **Cluster Profile:** Detailed profile of each cluster, highlighting key characteristics.
+
+---
+
+## Dashboard Principles
+
+### Clear Use Case and Course of Action
+- **Use Case:** Each page addresses specific business requirements, providing actionable insights.
+- **Course of Action:** Users can navigate through the dashboard to perform data inspections, run predictions, and understand model performances to make informed decisions.
+
+### Tailored to User Types
+- **Non-Technical Users:** Focus on visualizations, summaries, and actionable insights.
+- **Technical Users:** Provide detailed analytics, model performance metrics, and advanced visualizations.
+
+---

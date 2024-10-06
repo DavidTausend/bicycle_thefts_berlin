@@ -203,3 +203,8 @@ The dashboard is designed to cater to two main user types:
 - **Technical Users:** Provide detailed analytics, model performance metrics, and advanced visualizations.
 
 ---
+
+pandas doc
+https://pandas.pydata.org/docs/
+
+pip install -r requirements.txt

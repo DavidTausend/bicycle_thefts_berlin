@@ -208,3 +208,43 @@ pandas doc
 https://pandas.pydata.org/docs/
 
 pip install -r requirements.txt
+
+
+# Define Success Metrics
+
+## Objectives:
+- Identify the key performance indicators (KPIs) to measure the success of this project.
+- Define the thresholds or benchmarks for acceptable performance.
+- Link success metrics to stakeholder objectives and business requirements.
+
+## Success Metrics:
+
+1. **Model Performance Metrics:**
+   - **Accuracy:** The proportion of correctly predicted cases out of the total cases. 
+     - Threshold: > 95% (as agreed with stakeholders for reliable predictions).
+   - **F1-Score:** A balance between precision and recall, especially critical for imbalanced datasets.
+     - Threshold: > 0.90.
+   - **ROC-AUC Score:** A measure of how well the model distinguishes between classes.
+     - Threshold: > 0.85.
+
+2. **Business Metrics:**
+   - **Reduction in Bicycle Theft Cases:** Target a measurable reduction in theft incidents in high-risk areas identified by the model.
+   - **Operational Efficiency:**
+     - Improved allocation of resources by focusing on high-theft zones.
+   - **Cost Savings:** Reduction in investigation and operational costs related to bicycle theft.
+
+3. **Data Quality Metrics:**
+   - **Completeness:** Ensure > 99% of the dataset is complete with no critical missing values.
+   - **Consistency:** Consistent representation of features across all data points.
+
+## How Metrics Align with Stakeholder Goals:
+- **Stakeholders:** Law enforcement, city planners, and local government.
+- **Alignment:**
+  - **Model Accuracy:** Provides confidence in the predictions for actionable insights.
+  - **F1-Score:** Ensures minimal false positives/negatives when prioritizing zones for action.
+  - **Business Metrics:** Directly address the goal of reducing bicycle theft and enhancing operational efficiency.
+
+## Next Steps:
+- Integrate these metrics into the model evaluation phase.
+- Collaborate with stakeholders to validate these thresholds and refine them as needed.
+- Set up regular reporting mechanisms to track these metrics during model deployment.

@@ -9,7 +9,7 @@ def page_model_performance_body():
 
     # Check if the file exists
     if not os.path.exists(predictions_path):
-        st.error("Predictions file not found. Please ensure 'predictions.csv' exists in the 'outputs/models/' directory.")
+        st.error("Predictions file not found. Please ensure 'predictions.csv' exists in the '/workspace/bicycle_thefts_berlin/jupyter_notebooks/outputs/models/predictions.csv' directory.")
         return
 
     # Load the predictions

@@ -1,26 +1,48 @@
 import streamlit as st
 import pandas as pd
+import geopandas as gpd
 
+# Function to load neighborhoods from the GeoJSON file
+def load_neighborhoods():
+    try:
+        gdf = gpd.read_file("inputs/datasets/raw/lor_planungsraeume_2021.geojson")
+        st.write("Columns in GeoDataFrame:", gdf.columns.tolist()) 
+        return gdf['PLR_NAME'].sort_values().unique()  #
+    except Exception as e:
+        st.error(f"Error loading neighborhoods: {e}")
+        return []
+
+# Page content for theft prediction
 def page_theft_prediction_body():
-    st.title("Theft Prediction")
+    st.title("Bicycle Theft Prediction")
 
     # Description of the page
     st.write("This page allows users to input features to predict bicycle theft risk in Berlin.")
 
-    # Example form for user input
+    # Load neighborhoods
+    neighborhoods = load_neighborhoods()
+
+    # Validate if neighborhoods were loaded correctly
+    if neighborhoods.size > 0:
+        st.write("Available neighborhoods:", neighborhoods)  # Display loaded neighborhoods for user reference
+    else:
+        st.error("No neighborhoods available. Check data loading.")
+
+    # Input form for prediction
     st.subheader("Enter Details for Prediction")
     
-    # Example form inputs (replace with your actual feature names and options)
     bike_type = st.selectbox("Bicycle Type", ["Mountain Bike", "Road Bike", "Electric Bike"])
     theft_time = st.slider("Time of Day (Hour)", min_value=0, max_value=23, value=12)
-    neighborhood = st.text_input("Neighborhood")
-    
+    neighborhood = st.selectbox("Neighborhood", neighborhoods if neighborhoods.size > 0 else ["No data available"])
+
     # Mock prediction button
     if st.button("Predict"):
-        # Mock prediction result (replace this with your actual prediction code)
-        prediction = "High Risk" if theft_time > 18 else "Low Risk"
-        st.subheader("Prediction Result")
-        st.write(f"The predicted risk of theft is: **{prediction}**")
+        if neighborhood == "No data available":
+            st.error("Neighborhood data is missing. Cannot make prediction.")
+        else:
+            prediction = "High Risk" if theft_time > 18 else "Low Risk"
+            st.subheader("Prediction Result")
+            st.write(f"The predicted risk of theft is: **{prediction}**")
 
     # Optional: Display sample data
     st.subheader("Sample Data Preview")

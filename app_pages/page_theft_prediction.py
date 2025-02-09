@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import geopandas as gpd
+import traceback
 
 # Function to load neighborhoods from the GeoJSON file
 def load_neighborhoods():
@@ -8,8 +9,10 @@ def load_neighborhoods():
         lor_gdf = gpd.read_file("inputs/datasets/raw/lor_planungsraeume_2021.geojson")
         # Ensure 'PLR_ID' is treated as a string and padded with zeros
         lor_gdf['PLR_ID'] = lor_gdf['PLR_ID'].astype(str).str.zfill(8)
-        st.write("Available columns in GeoJSON:", lor_gdf.columns.tolist())
-        st.write("Sample data from GeoJSON:", lor_gdf.head())
+
+        # Remove 'geometry' column for display in Streamlit
+        st.write("Sample data from GeoJSON:", lor_gdf.drop(columns=['geometry']).head())
+
         return lor_gdf[['PLR_NAME', 'PLR_ID']].sort_values(by='PLR_NAME').dropna()
     except Exception as e:
         st.error(f"Error loading neighborhoods: {e}")
@@ -25,6 +28,7 @@ def load_theft_data():
         return theft_data
     except Exception as e:
         st.error(f"Error loading theft data: {e}")
+        st.write(traceback.format_exc())
         return pd.DataFrame()
 
 # Function to predict theft risk
@@ -81,7 +85,12 @@ def page_theft_prediction_body():
     neighborhood_name = st.selectbox("Neighborhood", neighborhood_data['PLR_NAME'])
 
     # Get neighborhood ID for matching
-    neighborhood_id = neighborhood_data.loc[neighborhood_data['PLR_NAME'] == neighborhood_name, 'PLR_ID'].values[0]
+    neighborhood_row = neighborhood_data.loc[neighborhood_data['PLR_NAME'] == neighborhood_name]
+    if neighborhood_row.empty:
+        st.error(f"Neighborhood '{neighborhood_name}' not found. Please check your data.")
+        return
+
+    neighborhood_id = neighborhood_row['PLR_ID'].values[0]
 
     # Prediction button
     if st.button("Predict"):

@@ -5,49 +5,90 @@ import geopandas as gpd
 # Function to load neighborhoods from the GeoJSON file
 def load_neighborhoods():
     try:
-        gdf = gpd.read_file("inputs/datasets/raw/lor_planungsraeume_2021.geojson")
-        st.write("Columns in GeoDataFrame:", gdf.columns.tolist()) 
-        return gdf['PLR_NAME'].sort_values().unique()  #
+        lor_gdf = gpd.read_file("inputs/datasets/raw/lor_planungsraeume_2021.geojson")
+        # Ensure 'PLR_ID' is treated as a string and padded with zeros
+        lor_gdf['PLR_ID'] = lor_gdf['PLR_ID'].astype(str).str.zfill(8)
+        st.write("Available columns in GeoJSON:", lor_gdf.columns.tolist())
+        st.write("Sample data from GeoJSON:", lor_gdf.head())
+        return lor_gdf[['PLR_NAME', 'PLR_ID']].sort_values(by='PLR_NAME').dropna()
     except Exception as e:
         st.error(f"Error loading neighborhoods: {e}")
-        return []
+        return pd.DataFrame()
 
-# Page content for theft prediction
+# Function to load the theft data from CSV
+def load_theft_data():
+    try:
+        theft_data = pd.read_csv("inputs/datasets/raw/Fahrraddiebstahl.csv", encoding='latin1')
+        # Ensure 'LOR' is treated as a string and padded with zeros
+        theft_data['LOR'] = theft_data['LOR'].astype(str).str.zfill(8)
+        st.write("Sample theft data preview:", theft_data.head(5))
+        return theft_data
+    except Exception as e:
+        st.error(f"Error loading theft data: {e}")
+        return pd.DataFrame()
+
+# Function to predict theft risk
+def predict_theft_risk(theft_time, bike_type, neighborhood_id, theft_data):
+    st.write("Debug - Input Parameters:", theft_time, bike_type, neighborhood_id)
+
+    # Filter the data based on input parameters
+    filtered_data = theft_data[
+        (theft_data['LOR'] == neighborhood_id) &
+        (theft_data['ART_DES_FAHRRADS'].str.lower() == bike_type.lower())
+    ]
+
+    # Debug: Display full filtering details
+    st.write("Filtered data preview:", filtered_data)
+    st.write("Filtered data size:", filtered_data.shape[0])
+
+    if filtered_data.empty:
+        st.warning("Filtered data is empty. No matches found for this combination.")
+        return "Low Risk"
+
+    # Determine the most common theft hour
+    common_theft_hour = filtered_data['TATZEIT_ANFANG_STUNDE'].value_counts().idxmax()
+    st.write("Common theft hour:", common_theft_hour)
+
+    # Check if input time is within high-risk hours
+    if theft_time >= common_theft_hour - 1 and theft_time <= common_theft_hour + 1:
+        return "High Risk"
+
+    return "Low Risk"
+
+# Streamlit page content
 def page_theft_prediction_body():
     st.title("Bicycle Theft Prediction")
 
-    # Description of the page
-    st.write("This page allows users to input features to predict bicycle theft risk in Berlin.")
+    # Load theft data
+    theft_data = load_theft_data()
+    if theft_data.empty:
+        st.error("Theft data not available. Cannot make predictions.")
+        return
 
-    # Load neighborhoods
-    neighborhoods = load_neighborhoods()
+    # Display column names for debugging
+    st.write("Theft data columns:", theft_data.columns.tolist())
 
-    # Validate if neighborhoods were loaded correctly
-    if neighborhoods.size > 0:
-        st.write("Available neighborhoods:", neighborhoods)  # Display loaded neighborhoods for user reference
-    else:
+    # Load neighborhood options
+    neighborhood_data = load_neighborhoods()
+    if neighborhood_data.empty:
         st.error("No neighborhoods available. Check data loading.")
+        return
 
-    # Input form for prediction
+    # Input form
     st.subheader("Enter Details for Prediction")
-    
-    bike_type = st.selectbox("Bicycle Type", ["Mountain Bike", "Road Bike", "Electric Bike"])
+    bike_type = st.selectbox("Bicycle Type", theft_data['ART_DES_FAHRRADS'].dropna().unique())
     theft_time = st.slider("Time of Day (Hour)", min_value=0, max_value=23, value=12)
-    neighborhood = st.selectbox("Neighborhood", neighborhoods if neighborhoods.size > 0 else ["No data available"])
+    neighborhood_name = st.selectbox("Neighborhood", neighborhood_data['PLR_NAME'])
 
-    # Mock prediction button
+    # Get neighborhood ID for matching
+    neighborhood_id = neighborhood_data.loc[neighborhood_data['PLR_NAME'] == neighborhood_name, 'PLR_ID'].values[0]
+
+    # Prediction button
     if st.button("Predict"):
-        if neighborhood == "No data available":
-            st.error("Neighborhood data is missing. Cannot make prediction.")
-        else:
-            prediction = "High Risk" if theft_time > 18 else "Low Risk"
-            st.subheader("Prediction Result")
-            st.write(f"The predicted risk of theft is: **{prediction}**")
+        prediction = predict_theft_risk(theft_time, bike_type, neighborhood_id, theft_data)
+        st.subheader("Prediction Result")
+        st.write(f"The predicted risk of theft is: **{prediction}**")
 
-    # Optional: Display sample data
+    # Display sample data
     st.subheader("Sample Data Preview")
-    try:
-        data = pd.read_csv("outputs/datasets/cleaned/TestSetCleaned.csv")
-        st.dataframe(data.head(5))
-    except Exception as e:
-        st.error(f"Error loading sample data: {e}")
+    st.dataframe(theft_data.head(5))

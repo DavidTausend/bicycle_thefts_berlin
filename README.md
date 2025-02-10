@@ -105,6 +105,15 @@ The dataset is sourced from [Kaggle](https://www.kaggle.com/datasets/arnewo/bicy
 - **Requirement 1:** Use data visualizations (heatmaps, time series plots) to explore and present theft trends.
 - **Requirement 2:** Develop a classification model to predict theft risk based on features such as location and time.
 
+| Business Requirement                   | Mapped Tasks                                                         |
+|-----------------------------------------|----------------------------------------------------------------------|
+| Insight into Theft Patterns             | Perform exploratory data analysis and create visualizations.          |
+| Predictive Model                        | Build and train a machine learning classification model.             |
+| High-risk times and locations analysis  | Generate time series and location heatmaps for theft incidents.       |
+| Feature correlation analysis            | Calculate feature correlations and display results on the dashboard.  |
+
+---
+
 ---
 
 ## ML Business Case
@@ -210,12 +219,58 @@ The application was manually tested to verify that each feature functions as int
 - Interacting with form elements and submitting data
 - Viewing prediction results and visualizations
 
-#### Test Scenarios
-| Feature            | Action                         | Expected Result                             | Actual Result       |
-|--------------------|---------------------------------|---------------------------------------------|---------------------|
-| Navigation         | Click on sidebar links          | Correct page is displayed                   | Functions as intended |
-| Prediction Form    | Enter parameters and submit     | Risk prediction result is displayed         | Functions as intended |
-| Data Preview       | View sample data                | Dataset preview is displayed on dashboard   | Functions as intended |
+### User Story Testing
+
+---
+
+#### As a non-technical user, I can view a project summary that describes the project, dataset, and business requirements to understand the project at a glance.
+
+| Feature               | Action                       | Expected Result                                     | Actual Result         |
+|-----------------------|------------------------------|----------------------------------------------------|-----------------------|
+| Project Summary Page  | Viewing summary page          | Page is displayed, can move between sections        | Functions as intended |
+
+---
+
+#### As a non-technical user, I can view the project hypotheses and validations to determine what the project was trying to achieve and whether it was successful.
+
+| Feature                | Action                         | Expected Result                                  | Actual Result         |
+|------------------------|---------------------------------|-------------------------------------------------|-----------------------|
+| Project Hypotheses Page| Navigate to page                | Clicking on navbar link in sidebar navigates to correct page | Functions as intended |
+
+---
+
+#### As a non-technical user, I can enter unseen data into the model and receive a prediction (Business Requirement 2).
+
+| Feature             | Action                         | Expected Result                                  | Actual Result         |
+|---------------------|---------------------------------|-------------------------------------------------|-----------------------|
+| Prediction Page     | Navigate to page                | Clicking on navbar link in sidebar navigates to correct page | Functions as intended |
+| Enter Live Data     | Interact with widgets           | All widgets are interactive, respond to user input | Functions as intended |
+| Live Prediction     | Click on 'Predict' button       | Clicking on button displays message on page with prediction and % chance | Functions as intended |
+
+---
+
+#### As a technical user, I can view the correlation analysis to see how the outcomes were reached (Business Requirement 1).
+
+| Feature               | Action                         | Expected Result                                  | Actual Result         |
+|-----------------------|---------------------------------|-------------------------------------------------|-----------------------|
+| Correlation Study Page| Navigate to page                | Clicking on navbar link in sidebar navigates to correct page | Functions as intended |
+| Correlation Data      | View correlation data           | Correlation data is displayed on dashboard       | Functions as intended |
+| Heatmap Visualization | Tick heatmap checkbox           | Heatmap visualization is displayed               | Functions as intended |
+| Feature Correlation   | Select feature from dropdown box| Relevant feature plot is displayed               | Functions as intended |
+
+---
+
+#### As a technical user, I can view all the data to understand the model performance and see statistics related to the model (Business Requirement 2).
+
+| Feature             | Action                         | Expected Result                                  | Actual Result         |
+|---------------------|---------------------------------|-------------------------------------------------|-----------------------|
+| Model Performance Page | Navigate to page             | Clicking on navbar link in sidebar navigates to correct page | Functions as intended |
+| Success Metrics      | View page                      | Success metrics outlined in business case are displayed | Functions as intended |
+| ML Pipelines         | View page                      | Both ML pipelines are displayed                  | Functions as intended |
+| Feature Importance   | View page                      | Most important features are plotted and displayed | Functions as intended |
+| Model Performance    | View page                      | Confusion matrix for train and test sets is displayed | Functions as intended |
+
+---
 
 ### PEP 8 Validation
 - All Python code was validated for PEP 8 compliance.

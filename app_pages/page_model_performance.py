@@ -14,8 +14,8 @@ def page_model_performance_body() -> None:
 
     # Define the path to the predictions file
     predictions_path = (
-        "/workspace/bicycle_thefts_berlin/jupyter_notebooks/outputs/"
-        "models/predictions.csv"
+        "/workspace/bicycle_thefts_berlin/jupyter_notebooks/"
+        "predictions.csv"
     )
 
     # Check if the file exists

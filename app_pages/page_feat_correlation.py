@@ -15,7 +15,7 @@ def page_feat_correlation_body() -> None:
     # Page Header
     st.write("# Feature Correlation Study")
 
-    # Section 1: Business Requirement
+    # Business Requirement
     st.write("## Business Requirement")
     st.write(
         """
@@ -26,12 +26,12 @@ def page_feat_correlation_body() -> None:
         """
     )
 
-    # Section 2: Inspect the Dataset
+    # Inspect the Dataset
     st.write("## Inspect the Dataset")
     st.write("Here is a preview of the dataset:")
     st.dataframe(data.head())
 
-    # Section 3: Calculate Pearson Correlation
+    # Calculate Pearson Correlation
     st.write("## Pearson Correlation Matrix")
 
     # Select only numeric columns for correlation
@@ -47,17 +47,11 @@ def page_feat_correlation_body() -> None:
     # Calculate correlation matrix
     correlation_matrix = numeric_data.corr(method="pearson")
 
-    # Display the correlation matrix as a heatmap or table
+    # Display the correlation matrix as table
     st.write("### Correlation Matrix")
     st.dataframe(correlation_matrix)
 
-    # Optional: Add heatmap visualization
-    st.write("### Heatmap Visualization")
-    st.write(
-        correlation_matrix.style.background_gradient(cmap="coolwarm")
-    )
-
-    # Section 4: Conclusions
+    # Conclusions
     st.write("## Conclusions")
     st.write(
         """

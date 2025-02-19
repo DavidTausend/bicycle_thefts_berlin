@@ -82,7 +82,7 @@ def predict_theft_risk(
         str: The predicted risk of theft ('High Risk' or 'Low Risk').
     """
     st.write(
-        "Debug - Input Parameters:",
+        "Input Parameters:",
         theft_time, bike_type, neighborhood_id,
     )
 
@@ -92,7 +92,7 @@ def predict_theft_risk(
         & (theft_data['ART_DES_FAHRRADS'].str.lower() == bike_type.lower())
     ]
 
-    # Debug: Display full filtering details
+    # Display full filtering details
     st.write("Filtered data preview:", filtered_data)
     st.write("Filtered data size:", filtered_data.shape[0])
 
@@ -130,7 +130,7 @@ def page_theft_prediction_body() -> None:
         st.error("Theft data not available. Cannot make predictions.")
         return
 
-    # Display column names for debugging
+    # Display column names
     st.write("Theft data columns:", theft_data.columns.tolist())
 
     # Load neighborhood options

@@ -19,7 +19,7 @@ def page_project_conclusions_body() -> None:
         """
     )
 
-    # Section 1: Summary of Findings
+    # Summary of Findings
     st.write("#### Summary of Findings")
     st.info(
         """
@@ -38,7 +38,7 @@ def page_project_conclusions_body() -> None:
         """
     )
 
-    # Section 2: Business Insights
+    # Business Insights
     st.write("#### Business Insights")
     st.success(
         """
@@ -51,7 +51,7 @@ def page_project_conclusions_body() -> None:
         """
     )
 
-    # Section 3: Recommendations
+    # Recommendations
     st.write("#### Recommendations")
     st.warning(
         """

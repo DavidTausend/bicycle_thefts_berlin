@@ -102,14 +102,14 @@ The dataset is sourced from [Kaggle](https://www.kaggle.com/datasets/arnewo/bicy
 
 ## Mapping Business Requirements to Data Visualization and ML Tasks
 
-- **Requirement 1:** Use data visualizations (heatmaps, time series plots) to explore and present theft trends.
+- **Requirement 1:** Use data visualizations (location, time series plots) to explore and present theft trends.
 - **Requirement 2:** Develop a classification model to predict theft risk based on features such as location and time.
 
 | Business Requirement                   | Mapped Tasks                                                         |
 |-----------------------------------------|----------------------------------------------------------------------|
 | Insight into Theft Patterns             | Perform exploratory data analysis and create visualizations.          |
 | Predictive Model                        | Build and train a machine learning classification model.             |
-| High-risk times and locations analysis  | Generate time series and location heatmaps for theft incidents.       |
+| High-risk times and locations analysis  | Generate time series and location for theft incidents.       |
 | Feature correlation analysis            | Calculate feature correlations and display results on the dashboard.  |
 
 ---
@@ -178,7 +178,7 @@ The dashboard is designed to provide both technical and non-technical users with
 
 ### Page 3: Feature Correlation Study
 - Visualizations and insights into feature correlations
-- Correlation matrix and heatmap visualization of theft-related features
+- Correlation matrix of theft-related features
 
 ### Page 4: Theft Risk Prediction
 - Form-based input for predicting theft risk based on location, time, and bicycle type
@@ -255,7 +255,7 @@ The application was manually tested to verify that each feature functions as int
 |-----------------------|---------------------------------|-------------------------------------------------|-----------------------|
 | Correlation Study Page| Navigate to page                | Clicking on navbar link in sidebar navigates to correct page | Functions as intended |
 | Correlation Data      | View correlation data           | Correlation data is displayed on dashboard       | Functions as intended |
-| Heatmap Visualization | Tick heatmap checkbox           | Heatmap visualization is displayed               | Functions as intended |
+| Location Visualization | Tick localtion checkbox           | Risk is displayed               | Functions as intended |
 | Feature Correlation   | Select feature from dropdown box| Relevant feature plot is displayed               | Functions as intended |
 
 ---
